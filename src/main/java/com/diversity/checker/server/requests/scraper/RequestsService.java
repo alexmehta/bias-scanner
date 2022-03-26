@@ -8,6 +8,8 @@ import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 @Service
@@ -40,12 +42,14 @@ public class RequestsService {
         File dir = new File("biased-words");
         HashSet<String> detections = new HashSet<>();
         File[] dirlist = dir.listFiles();
+        ArrayList<String> words = new ArrayList<String>(Arrays.asList(element.text().split(" ")));
         if (dirlist != null) {
             for (File file : dirlist) {
+                if (file.getName().length() <= 3) continue;
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
                 String line = br.readLine();
                 while (line != null) {
-                    if (element.text().contains(line)) {
+                    if (words.contains(line)) {
                         detections.add(file.getName() + ", ");
                     }
                     line = br.readLine();
@@ -63,12 +67,14 @@ public class RequestsService {
         File dir = new File("biased-words");
         HashSet<String> detections = new HashSet<>();
         File[] dirlist = dir.listFiles();
+        ArrayList<String> words = new ArrayList<String>(Arrays.asList(element.text().split(" ")));
         if (dirlist != null) {
             for (File file : dirlist) {
+                if (file.getName().length() <= 3) continue;
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
                 String line = br.readLine();
                 while (line != null) {
-                    if (element.text().contains(line)) {
+                    if (words.contains(line)) {
                         detections.add(line);
                     }
                     line = br.readLine();
