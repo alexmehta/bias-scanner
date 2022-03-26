@@ -30,6 +30,11 @@ public class RequestsService {
         String objContent = getObjectionable(element);
         String summary = getObjectionableSummary(element);
         String selector = element.cssSelector();
+        if (summary.length() > 1) {
+            selector = selector.substring(0, selector.length() - 1);
+            summary = summary.substring(0, summary.length() - 1);
+
+        }
         ObjectionableContent o = new ObjectionableContent(summary, objContent, selector);
         objectionableContentRepository.save(o);
         websiteRecord.getObjectionableContentList().add(o);
@@ -50,7 +55,7 @@ public class RequestsService {
                 String line = br.readLine();
                 while (line != null) {
                     if (words.contains(line)) {
-                        detections.add(file.getName() + ", ");
+                        detections.add(file.getName());
                     }
                     line = br.readLine();
                 }

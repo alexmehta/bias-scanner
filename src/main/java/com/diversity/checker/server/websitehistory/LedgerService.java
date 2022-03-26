@@ -18,7 +18,7 @@ public class LedgerService {
     }
 
     public WebsiteLedger getWebsite(String url) throws IOException {
-        WebsiteRecord website = requestsService.scanWebsite(url);
+    WebsiteRecord website = requestsService.scanWebsite(url);
         if (ledgerRepository.findById(url).isPresent()) {
             WebsiteLedger w = ledgerRepository.findById(url).get();
             w.getRecordList().add(website);
